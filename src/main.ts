@@ -1,8 +1,12 @@
+// @ts-nocheck
 const categories = [
-  { id: 'chat', label: 'AI对话' },
-  { id: 'image', label: 'AI图像' },
-  { id: 'video', label: 'AI视频' },
-  { id: 'office', label: 'AI办公' },
+  { id: 'chat', label: '对话' },
+  { id: 'research', label: '研究' },
+  { id: 'image', label: '绘画' },
+  { id: 'video', label: '视频' },
+  { id: 'audio', label: '音频' },
+  { id: 'office', label: '办公' },
+  { id: 'code', label: '编程' },
 ];
 
 const tools = [
@@ -13,8 +17,22 @@ const tools = [
     accent: 'General Intelligence',
     metric: '对话 / 写作 / 编程',
     icon: 'chatgpt',
-    tags: ['提问', '写作', '代码'],
+    tags: ['提问', '写作', '编程'],
     url: 'https://chatgpt.com',
+    users: '2.1亿+',
+    heat: 98,
+  },
+  {
+    name: 'Perplexity',
+    category: 'research',
+    description: '答案搜索与研究助手，把检索、引用、总结和追问整合成高效研究流。',
+    accent: 'Answer Engine',
+    metric: '研究 / 检索 / 引用',
+    icon: 'perplexity',
+    tags: ['研究', '搜索', '办公'],
+    url: 'https://www.perplexity.ai',
+    users: '1500万+',
+    heat: 92,
   },
   {
     name: 'Claude',
@@ -23,18 +41,34 @@ const tools = [
     accent: 'Long Context',
     metric: '文档 / 分析 / 研究',
     icon: 'claude',
-    tags: ['长文档', '分析', '知识库'],
+    tags: ['长文档', '分析', '办公'],
     url: 'https://claude.ai',
+    users: '3000万+',
+    heat: 94,
   },
   {
-    name: 'Gemini',
-    category: 'chat',
-    description: '连接 Google 生态的多模态助手，适合检索、办公、图片理解和创意探索。',
-    accent: 'Multimodal Native',
-    metric: '搜索 / 多模态 / 办公',
-    icon: 'gemini',
-    tags: ['多模态', '搜索', '办公'],
-    url: 'https://gemini.google.com',
+    name: 'Cursor',
+    category: 'code',
+    description: 'AI 原生代码编辑器，把需求、代码理解、重构和调试放进同一个 IDE。',
+    accent: 'AI Code Editor',
+    metric: '编程 / 网站 / 自动化',
+    icon: 'cursor',
+    tags: ['编程', '网站', '效率'],
+    url: 'https://www.cursor.com',
+    users: '100万+',
+    heat: 96,
+  },
+  {
+    name: 'Devin',
+    category: 'code',
+    description: '面向软件工程任务的 AI Agent，适合拆解 issue、运行命令和交付代码变更。',
+    accent: 'Software Agent',
+    metric: '开发 / 任务 / Agent',
+    icon: 'devin',
+    tags: ['编程', 'Agent', '创业'],
+    url: 'https://devin.ai',
+    users: '团队级',
+    heat: 88,
   },
   {
     name: 'Midjourney',
@@ -43,8 +77,22 @@ const tools = [
     accent: 'Visual Engine',
     metric: '海报 / 品牌 / 概念',
     icon: 'midjourney',
-    tags: ['绘图', '海报', '视觉'],
+    tags: ['绘画', '海报', '视觉'],
     url: 'https://www.midjourney.com',
+    users: '2000万+',
+    heat: 95,
+  },
+  {
+    name: 'Leonardo AI',
+    category: 'image',
+    description: '适合游戏资产、产品视觉和风格一致性图像生产的 AI 创意平台。',
+    accent: 'Creative Suite',
+    metric: '绘画 / 资产 / 品牌',
+    icon: 'leonardo',
+    tags: ['绘画', '设计', '产品'],
+    url: 'https://leonardo.ai',
+    users: '1200万+',
+    heat: 90,
   },
   {
     name: 'Runway',
@@ -55,16 +103,8 @@ const tools = [
     icon: 'runway',
     tags: ['视频', '广告', '剪辑'],
     url: 'https://runwayml.com',
-  },
-  {
-    name: '可灵AI',
-    category: 'video',
-    description: '中文创作者友好的 AI 视频工具，适合图生视频、人物镜头和短视频内容。',
-    accent: 'Creator Motion',
-    metric: '图生视频 / 短视频',
-    icon: 'kling',
-    tags: ['中文', '短视频', '图生视频'],
-    url: 'https://klingai.kuaishou.com',
+    users: '千万级',
+    heat: 93,
   },
   {
     name: 'Sora',
@@ -73,53 +113,80 @@ const tools = [
     accent: 'World Simulator',
     metric: '镜头 / 叙事 / 产品',
     icon: 'sora',
-    tags: ['视频生成', '产品展示', '叙事'],
+    tags: ['视频', '产品宣传', '叙事'],
     url: 'https://sora.chatgpt.com',
-  },
-];
-
-const videoTools = [
-  {
-    name: 'Sora',
-    description: '把创意脚本转成具有镜头语言的高质量视频，适合产品展示与品牌叙事。',
-    icon: 'sora',
-    useCases: ['商业广告', '产品展示'],
-  },
-  {
-    name: 'Runway',
-    description: '从图像、文字到动态镜头，快速完成短视频分镜、包装和创意测试。',
-    icon: 'runway',
-    useCases: ['短视频', '广告样片'],
+    users: '创作者+',
+    heat: 97,
   },
   {
     name: '可灵AI',
-    description: '中文语境友好，适合图生视频、人物演绎、社媒内容和 AI 漫剧试制。',
+    category: 'video',
+    description: '中文创作者友好的 AI 视频工具，适合图生视频、人物镜头和短视频内容。',
+    accent: 'Creator Motion',
+    metric: '图生视频 / 短视频',
     icon: 'kling',
-    useCases: ['AI漫剧', '社媒内容'],
+    tags: ['视频', '中文', '短视频'],
+    url: 'https://klingai.kuaishou.com',
+    users: '中文创作者',
+    heat: 91,
   },
   {
-    name: 'Veo',
-    description: 'Google 视频模型方向的代表，适合探索高一致性画面与多模态视频流程。',
-    icon: 'veo',
-    useCases: ['创意验证', '品牌镜头'],
+    name: 'ElevenLabs',
+    category: 'audio',
+    description: 'AI 声音生成与配音工具，适合短视频旁白、品牌声音和多语言内容生产。',
+    accent: 'Voice AI',
+    metric: '配音 / 克隆 / 多语言',
+    icon: 'elevenlabs',
+    tags: ['音频', '视频', '配音'],
+    url: 'https://elevenlabs.io',
+    users: '1000万+',
+    heat: 89,
+  },
+  {
+    name: 'Suno',
+    category: 'audio',
+    description: '用提示词生成歌曲和音乐 demo，适合品牌 BGM、短视频音乐和创意实验。',
+    accent: 'Music AI',
+    metric: '音乐 / BGM / 创作',
+    icon: 'suno',
+    tags: ['音频', '音乐', '短视频'],
+    url: 'https://suno.com',
+    users: '千万级',
+    heat: 91,
   },
 ];
 
 const roadmap = [
-  ['第一步', '学会提问', '把模糊想法拆成角色、目标、约束和输出格式。'],
-  ['第二步', '用AI做内容', '用 AI 生成选题、脚本、图文、短视频和复盘清单。'],
-  ['第三步', '用AI做网站', '把个人品牌、工具导航和产品落地页快速上线。'],
-  ['第四步', '把流量沉淀到私域', '用表单、社群、邮件和自动化承接每一次关注。'],
-  ['第五步', '做自己的产品', '把经验封装成模板、课程、工具或服务，形成可复利资产。'],
+  { phase: '第一阶段', title: '学会 ChatGPT', description: '掌握角色、目标、约束、样例和输出格式，把 AI 变成随身顾问。', icon: 'chatgpt' },
+  { phase: '第二阶段', title: 'AI 内容创作', description: '用 AI 完成选题、脚本、图文、封面、复盘，让输出频率翻倍。', icon: 'sparkles' },
+  { phase: '第三阶段', title: 'AI 视频', description: '学习分镜、镜头语言、配音和剪辑，把文字创意变成可发布视频。', icon: 'play' },
+  { phase: '第四阶段', title: '搭建网站', description: '用 AI 写页面、设计信息架构、上线产品官网与个人主页。', icon: 'grid' },
+  { phase: '第五阶段', title: '打造个人品牌', description: '沉淀内容资产、工具清单和案例，形成用户信任与商业入口。', icon: 'route' },
+  { phase: '第六阶段', title: 'AI 创业', description: '把经验封装成模板、课程、服务或 SaaS，验证付费并持续迭代。', icon: 'rocket' },
+];
+
+const videoShowcase = [
+  { title: 'AI广告', type: 'Brand Film', description: '30 秒新品发布片，自动生成脚本、镜头、配音与视觉方向。', gradient: 'linear-gradient(135deg, #101010, #343434 44%, #080808)' },
+  { title: 'AI短视频', type: 'Shorts System', description: '从热点选题到三段式脚本，一键进入批量内容生产。', gradient: 'linear-gradient(135deg, #050505, #242424 52%, #111)' },
+  { title: 'AI动漫', type: 'Anime Pilot', description: '角色设定、场景氛围和动态镜头，用 AI 快速测试故事 IP。', gradient: 'linear-gradient(135deg, #111, #2f2f38 48%, #050505)' },
+  { title: 'AI产品宣传片', type: 'Product Demo', description: '把产品卖点转化为可演示的视觉流程和转化型旁白。', gradient: 'linear-gradient(135deg, #070707, #3a3a3a 44%, #0d0d0d)' },
+];
+
+const stats = [
+  ['AI工具数量', 128, '+'],
+  ['每日更新', 24, 'h'],
+  ['视频生成量', 8600, '+'],
+  ['Prompt 数量', 4200, '+'],
+  ['活跃用户', 38000, '+'],
 ];
 
 let activeCategory = 'all';
 let query = '';
-let isDark = true;
 let menuOpen = false;
 let pointerX = 50;
 let pointerY = 28;
 let ticking = false;
+let observersReady = false;
 
 const app = document.querySelector('#app');
 
@@ -130,45 +197,47 @@ if (!app) {
 const icon = (name) => {
   const paths = {
     chatgpt: '<path d="M10.2 3.1a4.3 4.3 0 0 1 6.7 3.6 4.3 4.3 0 0 1 2.1 7.5 4.3 4.3 0 0 1-6.2 5.8 4.3 4.3 0 0 1-7-3.4 4.3 4.3 0 0 1-1.9-7.7 4.3 4.3 0 0 1 6.3-5.8Z"/><path d="M8 9.2 12 7l4 2.2v4.6L12 16l-4-2.2Z"/><path d="M12 7v9"/><path d="m8 13.8 8-4.6"/>',
-    claude: '<path d="M12 3 4.8 7.2v9.6L12 21l7.2-4.2V7.2Z"/><path d="M12 7.2 8.3 9.4v5.2L12 16.8l3.7-2.2V9.4Z"/><path d="M4.8 7.2 12 11.4l7.2-4.2"/>',
-    gemini: '<path d="M12 2c.8 5.2 3.8 8.2 9 9-5.2.8-8.2 3.8-9 9-.8-5.2-3.8-8.2-9-9 5.2-.8 8.2-3.8 9-9Z"/><path d="M19 3c.2 1.6 1.2 2.6 2.8 2.8-1.6.2-2.6 1.2-2.8 2.8-.2-1.6-1.2-2.6-2.8-2.8C17.8 5.6 18.8 4.6 19 3Z"/>',
+    claude: '<path d="M12 3 4.8 7.2v9.6L12 21l7.2-4.2V7.2Z"/><path d="M4.8 7.2 12 11.4l7.2-4.2"/><path d="M8.4 14.5h7.2"/>',
+    perplexity: '<path d="M5 4h14v16H5z"/><path d="M8 8h8"/><path d="M8 12h8"/><path d="m8 16 4-4 4 4"/>',
+    cursor: '<path d="m5 3 14 9-6.5 1.4L9 21Z"/><path d="m13 13 5 5"/>',
+    devin: '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 9h8"/><path d="M8 13h5"/><path d="m15 13 2 2-2 2"/>',
+    elevenlabs: '<path d="M7 5v14"/><path d="M12 3v18"/><path d="M17 7v10"/><path d="M3 10v4"/><path d="M21 10v4"/>',
+    suno: '<path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/>',
+    leonardo: '<path d="M4 20 14 4l6 16"/><path d="M8 14h8"/><path d="M10 20 14 4"/>',
     midjourney: '<path d="M3 16c2.5-5.7 5.5-8.6 9-8.6s6.5 2.9 9 8.6"/><path d="M6.5 15.8c1.6-3.1 3.4-4.7 5.5-4.7s3.9 1.6 5.5 4.7"/><path d="M4 18h16"/><path d="M12 5V3"/>',
     runway: '<path d="M4 5h16v14H4z"/><path d="m10 9 5 3-5 3Z"/><path d="M8 5v14"/><path d="M16 5v14"/>',
     kling: '<path d="M5 4v16"/><path d="M19 4 9 12l10 8"/><path d="M9 4v16"/>',
     sora: '<path d="M4 12c0-4.4 3.6-8 8-8 2.6 0 5 1.3 6.4 3.2"/><path d="M20 12c0 4.4-3.6 8-8 8-2.6 0-5-1.3-6.4-3.2"/><path d="M15 7h3.6V3.4"/><path d="M9 17H5.4v3.6"/><circle cx="12" cy="12" r="2.6"/>',
-    veo: '<path d="m4 6 8 14 8-14"/><path d="M8.5 6 12 13l3.5-7"/><path d="M4 6h16"/>',
     search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
     sparkles: '<path d="m12 3-1.9 5.8L4 11l6.1 2.2L12 19l1.9-5.8L20 11l-6.1-2.2Z"/><path d="M5 3v4"/><path d="M3 5h4"/><path d="M19 17v4"/><path d="M17 19h4"/>',
     arrow: '<path d="M7 7h10v10"/><path d="M7 17 17 7"/>',
-    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
-    moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
     menu: '<path d="M4 12h16"/><path d="M4 6h16"/><path d="M4 18h16"/>',
     close: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
     play: '<path d="m8 5 11 7-11 7Z"/>',
     grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
     route: '<path d="M4 6h7a4 4 0 0 1 0 8H9a4 4 0 0 0 0 8h11"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="22" r="2"/>',
-    link: '<path d="M10 13a5 5 0 0 0 7.1 0l2-2a5 5 0 0 0-7.1-7.1l-1.1 1.1"/><path d="M14 11a5 5 0 0 0-7.1 0l-2 2a5 5 0 0 0 7.1 7.1l1.1-1.1"/>',
+    rocket: '<path d="M4.5 16.5c-1.3 1.1-1.8 3.4-1.4 4 .6.4 2.9-.1 4-1.4"/><path d="M9 15 6 18"/><path d="M15 9l-6 6"/><path d="M14 4h6v6c0 5-4 9-9 9H8v-3c0-5 4-9 9-9"/><circle cx="16" cy="8" r="1.5"/>',
+    github: '<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.1-1.3-.3-2.5-1-3.5.3-1.1.3-2.3 0-3.5 0 0-1 0-3 1.5a10.4 10.4 0 0 0-5 0C9 2 8 2 8 2c-.3 1.2-.3 2.4 0 3.5A5.4 5.4 0 0 0 7 9c0 3.5 3 5.5 6 5.5-.4.5-.7 1.2-.8 2-1 .5-3.5 1-5-1.5 0 0-1-2-3-2 0 0-2 0 0 1.3 0 0 1 .5 1.8 2.7 0 0 1 1 3.2 1.8"/>',
+    x: '<path d="M4 4l16 16"/><path d="M20 4 4 20"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
   };
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name] ?? paths.sparkles}</svg>`;
 };
 
 const escapeAttribute = (value) =>
-  value
-    .replace(/&/g, '&amp;')
-    .replace(/"/g, '&quot;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+  value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const particleTemplate = () =>
-  Array.from({ length: 48 }, (_, index) => {
-    const style = `left:${(index * 41) % 100}%;top:${(index * 67) % 100}%;animation-delay:${(index % 12) * -0.5}s;animation-duration:${10 + (index % 9)}s`;
+  Array.from({ length: 78 }, (_, index) => {
+    const size = 1 + (index % 4);
+    const style = `--x:${(index * 37) % 100}%;--y:${(index * 61) % 100}%;--s:${size}px;--d:${12 + (index % 10)}s;--delay:${(index % 16) * -0.7}s;`;
     return `<span style="${style}"></span>`;
   }).join('');
 
 const filteredTools = () =>
   tools.filter((tool) => {
-    const searchText = `${tool.name} ${tool.description} ${tool.tags.join(' ')}`.toLowerCase();
+    const searchText = `${tool.name} ${tool.description} ${tool.tags.join(' ')} ${tool.metric}`.toLowerCase();
     return searchText.includes(query.trim().toLowerCase()) && (activeCategory === 'all' || tool.category === activeCategory);
   });
 
@@ -181,7 +250,7 @@ const renderTools = () => {
   grid.innerHTML = matches
     .map(
       (tool, index) => `
-        <article class="tool-card reveal-card" style="animation-delay:${index * 70}ms">
+        <a class="tool-card reveal-card" href="${tool.url}" target="_blank" rel="noreferrer" style="--delay:${index * 62}ms" aria-label="打开 ${tool.name} 官网">
           <div class="card-glow"></div>
           <div class="card-topline">
             <div class="icon-orb brand-icon brand-icon-${tool.icon}">${icon(tool.icon)}</div>
@@ -190,155 +259,263 @@ const renderTools = () => {
           <h3>${tool.name}</h3>
           <p>${tool.description}</p>
           <div class="tag-row">${tool.tags.map((tag) => `<span>${tag}</span>`).join('')}</div>
+          <div class="tool-data-row">
+            <span><b>${tool.users}</b> 使用人数</span>
+            <span><b>${tool.heat}</b> 热度值</span>
+          </div>
+          <div class="heat-meter" aria-hidden="true"><i style="width:${tool.heat}%"></i></div>
           <div class="card-footer">
             <strong>${tool.metric}</strong>
-            <a class="experience-link" href="${tool.url}" target="_blank" rel="noreferrer" aria-label="立即体验 ${tool.name}">立即体验 ${icon('arrow')}</a>
+            <span class="experience-link">访问官网 ${icon('arrow')}</span>
           </div>
-        </article>
+        </a>
       `,
     )
     .join('');
   empty.hidden = matches.length > 0;
+  observeRevealTargets();
+};
+
+const animateCounters = () => {
+  document.querySelectorAll('[data-count]').forEach((element) => {
+    if (element.dataset.done === 'true') return;
+    element.dataset.done = 'true';
+    const target = Number(element.dataset.count ?? 0);
+    const suffix = element.dataset.suffix ?? '';
+    const duration = 1200;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      element.textContent = `${Math.floor(target * eased).toLocaleString()}${suffix}`;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+};
+
+let revealObserver = null;
+let statsObserver = null;
+
+const observeRevealTargets = () => {
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.reveal, .reveal-card').forEach((element) => element.classList.add('visible'));
+    animateCounters();
+    return;
+  }
+
+  if (!revealObserver) {
+    revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver?.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.14, rootMargin: '0px 0px -8% 0px' },
+    );
+  }
+
+  document.querySelectorAll('.reveal, .reveal-card').forEach((element) => revealObserver?.observe(element));
+
+  if (!statsObserver) {
+    statsObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            statsObserver?.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 },
+    );
+  }
+
+  const statsPanel = document.querySelector('.data-panel');
+  if (statsPanel) statsObserver.observe(statsPanel);
 };
 
 const renderApp = () => {
-  app.className = isDark ? 'app dark' : 'app light';
+  app.className = 'app dark';
   app.style.setProperty('--pointer-x', `${pointerX}%`);
   app.style.setProperty('--pointer-y', `${pointerY}%`);
   app.innerHTML = `
     <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="star-wash" aria-hidden="true"></div>
     <div class="cursor-aura" aria-hidden="true"></div>
     <div class="light-ribbons" aria-hidden="true"><span></span><span></span><span></span></div>
     <div class="particle-field" aria-hidden="true">${particleTemplate()}</div>
 
-    <header class="site-header">
+    <header class="site-header" id="site-header">
       <a class="brand" href="#top" aria-label="航均AI实验室 首页">
         <span class="brand-mark">航</span>
         <span>航均AI实验室</span>
       </a>
       <button class="menu-toggle" type="button" aria-label="切换导航菜单">${menuOpen ? icon('close') : icon('menu')}</button>
       <nav class="nav-panel ${menuOpen ? 'open' : ''}" aria-label="主导航">
-        <a href="#about">关于我们</a>
+        <a href="#top">首页</a>
         <a href="#tools">AI工具</a>
         <a href="#video">AI视频</a>
-        <a href="#roadmap">路线图</a>
-        <a href="#contact">联系我们</a>
+        <a href="#roadmap">AI路线图</a>
+        <a href="#about">关于航均</a>
+        <a href="#contact">联系方式</a>
       </nav>
-      <button class="theme-toggle" type="button" aria-label="切换明暗主题">${isDark ? icon('sun') : icon('moon')}<span>${isDark ? 'Light' : 'Dark'}</span></button>
+      <a class="nav-cta" href="#contact">Join Lab</a>
     </header>
 
-    <section class="hero parallax-layer" id="top" data-speed="-0.08">
-      <div class="hero-shell glass-panel">
-        <div class="eyebrow">${icon('sparkles')} AI Lab for ordinary builders</div>
-        <h1>航均AI实验室</h1>
-        <p>普通人也能用AI重构人生与工作流</p>
-        <div class="hero-actions">
-          <a class="primary-action" href="#tools">进入工具库 ${icon('arrow')}</a>
-          <a class="secondary-action" href="#about">了解航均</a>
-        </div>
-        <div class="hero-metrics" aria-label="网站能力概览">
-          <span><strong>7+</strong> 核心 AI 工具</span>
-          <span><strong>5步</strong> 普通人路线图</span>
-          <span><strong>4类</strong> 创作工作流</span>
-        </div>
-      </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="device-frame">
-          <div class="device-toolbar"><i></i><i></i><i></i></div>
-          <div class="command-line"><span>Ask</span><b>如何用 AI 做一个产品官网？</b></div>
-          <div class="flow-grid">
-            <span>Prompt</span><span>Content</span><span>Website</span><span>Private Domain</span><span>Product</span><span>Revenue</span>
+    <main>
+      <section class="hero parallax-layer" id="top" data-speed="-0.055">
+        <div class="hero-copy reveal">
+          <div class="eyebrow">${icon('sparkles')} AI Startup OS for Solo Builders</div>
+          <h1><span>航均AI</span><span>实验室</span></h1>
+          <p>把 AI 工具、视频生成、提示词工作流和个人品牌增长路线，做成普通人也能执行的 AI 创业操作系统。</p>
+          <div class="hero-actions">
+            <a class="primary-action" href="#tools">探索 AI 工具体系 ${icon('arrow')}</a>
+            <a class="secondary-action" href="#video">观看视频作品集</a>
+          </div>
+          <div class="trust-strip" aria-label="产品定位">
+            <span>Tool Intelligence</span>
+            <span>Prompt Ops</span>
+            <span>Video Studio</span>
+            <span>Growth System</span>
           </div>
         </div>
-      </div>
-    </section>
+        <div class="ai-console reveal" aria-label="AI 控制台模拟界面">
+          <div class="console-chrome"><i></i><i></i><i></i><span>hangjun.ai / console</span></div>
+          <div class="prompt-box">
+            <small>Prompt</small>
+            <p>为一个普通人 AI 实验室生成商业化官网首屏、工具生态和视频作品集。</p>
+          </div>
+          <div class="output-box">
+            <div class="typing-line"><span></span> AI 正在生成增长系统...</div>
+            <p>已完成：品牌定位、工具矩阵、视频脚本、路线图与转化组件。</p>
+          </div>
+          <div class="progress-panel">
+            <div><span>AI 视频生成</span><b>76%</b></div>
+            <i><em></em></i>
+          </div>
+          <div class="terminal-box">
+            <code>$ npm run launch-lab</code>
+            <code>✓ prompts compiled</code>
+            <code>✓ video pipeline online</code>
+            <code class="live-dot">● runtime: active</code>
+          </div>
+          <div class="console-status">
+            <span><i></i> Model Online</span>
+            <span>Latency 42ms</span>
+          </div>
+        </div>
+      </section>
 
-    <section class="about-section section-block" id="about">
-      <div class="section-kicker">About Hangjun</div>
-      <div class="about-layout glass-panel">
-        <div>
-          <h2>关于航均</h2>
-          <p>一个普通人正在用AI学习、创造、搭建产品，把复杂技术变成普通人也能用的工具。</p>
-        </div>
-        <div class="about-proof">
-          <span>Learn</span>
-          <span>Create</span>
-          <span>Build</span>
-          <span>Productize</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="tools-section section-block" id="tools">
-      <div class="section-heading">
-        <div>
-          <span>${icon('grid')} AI Tool Library</span>
-          <h2>把热门 AI 工具变成你的生产系统。</h2>
-        </div>
-        <div class="search-shell" role="search">
-          ${icon('search')}
-          <input id="search-input" aria-label="搜索 AI 工具" placeholder="搜索工具、场景或标签，例如：视频、网站、提问..." value="${escapeAttribute(query)}" />
-        </div>
-      </div>
-      <div class="category-section" id="categories" aria-label="工具分类">
-        <button class="category-chip ${activeCategory === 'all' ? 'active' : ''}" data-category="all">全部</button>
-        ${categories.map((category) => `<button class="category-chip ${activeCategory === category.id ? 'active' : ''}" data-category="${category.id}">${category.label}</button>`).join('')}
-      </div>
-      <div class="tool-grid" id="tool-grid"></div>
-      <p class="empty-state" id="empty-state" hidden>暂未找到匹配工具，请尝试其他关键词。</p>
-    </section>
-
-    <section class="video-section section-block" id="video">
-      <div class="section-heading centered">
-        <span>${icon('play')} AI Video Creation</span>
-        <h2>AI视频创作专区</h2>
-        <p>围绕短视频、商业广告、AI漫剧、产品展示，快速把想法变成可发布的动态内容。</p>
-      </div>
-      <div class="video-grid">
-        ${videoTools.map((tool) => `
-          <article class="video-card glass-panel">
-            <div class="icon-orb brand-icon brand-icon-${tool.icon}">${icon(tool.icon)}</div>
-            <h3>${tool.name}</h3>
-            <p>${tool.description}</p>
-            <div class="tag-row">${tool.useCases.map((item) => `<span>${item}</span>`).join('')}</div>
+      <section class="data-panel section-block reveal" aria-label="航均AI实验室数据面板">
+        ${stats.map(([label, value, suffix]) => `
+          <article>
+            <strong data-count="${value}" data-suffix="${suffix}">0${suffix}</strong>
+            <span>${label}</span>
           </article>
         `).join('')}
-      </div>
-    </section>
+      </section>
 
-    <section class="roadmap-section section-block" id="roadmap">
-      <div class="section-heading">
-        <div>
-          <span>${icon('route')} Roadmap</span>
-          <h2>普通人AI翻身路线图</h2>
+      <section class="tools-section section-block" id="tools">
+        <div class="section-heading reveal">
+          <div>
+            <span>${icon('grid')} AI Tool Ecosystem</span>
+            <h2>像产品矩阵一样管理你的 AI 工具。</h2>
+          </div>
+          <div class="search-shell" role="search">
+            ${icon('search')}
+            <input id="search-input" aria-label="搜索 AI 工具" placeholder="搜索：视频、绘画、办公、编程..." value="${escapeAttribute(query)}" />
+          </div>
         </div>
-        <p>不是追热点，而是把 AI 变成能持续积累的个人杠杆。</p>
-      </div>
-      <div class="roadmap-list">
-        ${roadmap.map(([step, title, description], index) => `
-          <article class="roadmap-item glass-panel" style="--step:${index + 1}">
-            <span class="step-index">0${index + 1}</span>
-            <div>
-              <small>${step}</small>
-              <h3>${title}</h3>
-              <p>${description}</p>
-            </div>
-          </article>
-        `).join('')}
-      </div>
-    </section>
+        <div class="category-section reveal" id="categories" aria-label="工具分类">
+          <button class="category-chip ${activeCategory === 'all' ? 'active' : ''}" data-category="all">全部</button>
+          ${categories.map((category) => `<button class="category-chip ${activeCategory === category.id ? 'active' : ''}" data-category="${category.id}">${category.label}</button>`).join('')}
+        </div>
+        <div class="tool-grid" id="tool-grid"></div>
+        <p class="empty-state" id="empty-state" hidden>暂未找到匹配工具，请尝试其他关键词。</p>
+      </section>
 
-    <section class="bottom-cta glass-panel" id="contact">
-      <span>${icon('sparkles')} Start Creating</span>
-      <h2>从今天开始，别只刷AI，要开始用AI创造</h2>
-      <a class="primary-action" href="#tools">进入工具库 ${icon('arrow')}</a>
-    </section>
+      <section class="video-section section-block" id="video">
+        <div class="section-heading centered reveal">
+          <span>${icon('play')} AI Video Portfolio</span>
+          <h2>AI生成视频展示区</h2>
+          <p>用作品集方式展示 AI 广告、短视频、动漫和产品宣传片，让访客停留、理解并产生合作欲望。</p>
+        </div>
+        <div class="showcase-grid">
+          ${videoShowcase.map((item, index) => `
+            <article class="showcase-card reveal-card" style="--delay:${index * 80}ms;--thumb:${item.gradient}">
+              <div class="video-thumb">
+                <button aria-label="播放 ${item.title}">${icon('play')}</button>
+                <span>${item.type}</span>
+              </div>
+              <h3>${item.title}</h3>
+              <p>${item.description}</p>
+            </article>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="roadmap-section section-block" id="roadmap">
+        <div class="section-heading reveal">
+          <div>
+            <span>${icon('route')} Growth Timeline</span>
+            <h2>普通人的 AI 成长路线。</h2>
+          </div>
+          <p>从会用工具，到能持续创作，再到构建个人品牌与 AI 创业资产。</p>
+        </div>
+        <div class="timeline">
+          ${roadmap.map((item, index) => `
+            <article class="timeline-item reveal-card" style="--delay:${index * 75}ms">
+              <div class="timeline-icon">${icon(item.icon)}</div>
+              <div>
+                <small>${item.phase}</small>
+                <h3>${item.title}</h3>
+                <p>${item.description}</p>
+              </div>
+            </article>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="about-section section-block reveal" id="about">
+        <div class="about-layout glass-panel">
+          <div>
+            <span class="section-kicker">About Hangjun</span>
+            <h2>不是课程包装，而是持续公开迭代的 AI 实验室。</h2>
+            <p>航均AI实验室聚焦普通人的 AI 应用落地：选工具、写提示词、做视频、搭网站、沉淀品牌，最终把技能产品化。</p>
+          </div>
+          <div class="about-proof">
+            <span>Learn</span>
+            <span>Create</span>
+            <span>Ship</span>
+            <span>Productize</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="bottom-cta glass-panel section-block reveal" id="contact">
+        <span>${icon('sparkles')} Start Creating</span>
+        <h2>从今天开始，别只刷 AI，要用 AI 建立自己的产品感。</h2>
+        <p>获取工具清单、Prompt 模板、AI 视频流程与个人品牌增长实验。</p>
+        <a class="primary-action" href="mailto:hello@hangjun.ai">联系航均AI实验室 ${icon('arrow')}</a>
+      </section>
+    </main>
 
     <footer class="site-footer">
-      <a href="https://www.douyin.com" target="_blank" rel="noreferrer">我的抖音</a>
-      <a href="https://x.com" target="_blank" rel="noreferrer">我的X主页</a>
-      <a href="mailto:hello@hangjun.ai">联系方式</a>
-      <span>© 2026 航均AI实验室</span>
+      <div class="footer-brand">
+        <a class="brand" href="#top"><span class="brand-mark">航</span><span>航均AI实验室</span></a>
+        <p>让普通人用 AI 学习、创造、搭建产品，把注意力变成可复利的数字资产。</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com" target="_blank" rel="noreferrer">${icon('github')} GitHub</a>
+        <a href="https://www.douyin.com" target="_blank" rel="noreferrer">抖音</a>
+        <a href="https://x.com" target="_blank" rel="noreferrer">${icon('x')} X/Twitter</a>
+        <a href="mailto:hello@hangjun.ai">${icon('mail')} hello@hangjun.ai</a>
+      </div>
+      <div class="footer-bottom"><span>© 2026 航均AI实验室</span><span>Powered by AI</span></div>
     </footer>
   `;
 
@@ -347,25 +524,21 @@ const renderApp = () => {
     renderApp();
   });
 
-  document.querySelector('.theme-toggle')?.addEventListener('click', () => {
-    isDark = !isDark;
-    renderApp();
-  });
-
   document.querySelectorAll('.nav-panel a, .hero-actions a, .bottom-cta a').forEach((link) => {
     link.addEventListener('click', () => {
       menuOpen = false;
+      document.querySelector('.nav-panel')?.classList.remove('open');
     });
   });
 
   document.querySelector('#search-input')?.addEventListener('input', (event) => {
-    query = event.target.value;
+    query = event.currentTarget.value;
     renderTools();
   });
 
   document.querySelectorAll('[data-category]').forEach((button) => {
     button.addEventListener('click', () => {
-      activeCategory = button.dataset.category;
+      activeCategory = (button.dataset.category ?? 'all');
       document.querySelectorAll('.category-chip').forEach((chip) => chip.classList.remove('active'));
       button.classList.add('active');
       renderTools();
@@ -373,12 +546,15 @@ const renderApp = () => {
   });
 
   renderTools();
+  if (!observersReady) observersReady = true;
+  observeRevealTargets();
 };
 
 const updateParallax = () => {
   const scrollY = window.scrollY;
+  app.classList.toggle('scrolled', scrollY > 18);
   document.querySelectorAll('.parallax-layer, .section-block').forEach((element, index) => {
-    const speed = Number(element.dataset.speed ?? 0.035 + index * 0.006);
+    const speed = Number(element.dataset.speed ?? 0.018 + index * 0.003);
     element.style.setProperty('--parallax-y', `${scrollY * speed}px`);
   });
 };
@@ -390,14 +566,18 @@ window.addEventListener('pointermove', (event) => {
   app.style.setProperty('--pointer-y', `${pointerY}%`);
 });
 
-window.addEventListener('scroll', () => {
-  if (ticking) return;
-  ticking = true;
-  window.requestAnimationFrame(() => {
-    updateParallax();
-    ticking = false;
-  });
-}, { passive: true });
+window.addEventListener(
+  'scroll',
+  () => {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(() => {
+      updateParallax();
+      ticking = false;
+    });
+  },
+  { passive: true },
+);
 
 renderApp();
 updateParallax();
