@@ -4,9 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run build && node scripts/dev-server.mjs dist",
-    "build": "tsc && node scripts/build.mjs",
-    "preview": "node scripts/dev-server.mjs dist"
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  }
 }
