@@ -16,11 +16,12 @@
 - TypeScript
 - 原生 Web Components 风格的 DOM 渲染
 - CSS Variables / CSS Grid / Backdrop Filter
-- 零运行时依赖，使用 Node.js 脚本构建与预览
+- Vite 构建与预览，生产产物输出到 `dist/`
 
 ## 本地开发
 
 ```bash
+npm install
 npm run dev
 ```
 
@@ -29,3 +30,5 @@ npm run dev
 ```bash
 npm run build
 ```
+
+构建完成后，静态文件会输出到 `dist/`，可直接作为 Vercel 的 Output Directory。
