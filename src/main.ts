@@ -1,10 +1,8 @@
 // @ts-nocheck
 const categories = [
-  { id: 'chat', label: '对话' },
-  { id: 'research', label: '研究' },
+  { id: 'chat', label: '聊天' },
   { id: 'image', label: '绘画' },
   { id: 'video', label: '视频' },
-  { id: 'audio', label: '音频' },
   { id: 'office', label: '办公' },
   { id: 'code', label: '编程' },
 ];
@@ -24,7 +22,7 @@ const tools = [
   },
   {
     name: 'Perplexity',
-    category: 'research',
+    category: 'office',
     description: '答案搜索与研究助手，把检索、引用、总结和追问整合成高效研究流。',
     accent: 'Answer Engine',
     metric: '研究 / 检索 / 引用',
@@ -132,7 +130,7 @@ const tools = [
   },
   {
     name: 'ElevenLabs',
-    category: 'audio',
+    category: 'video',
     description: 'AI 声音生成与配音工具，适合短视频旁白、品牌声音和多语言内容生产。',
     accent: 'Voice AI',
     metric: '配音 / 克隆 / 多语言',
@@ -144,7 +142,7 @@ const tools = [
   },
   {
     name: 'Suno',
-    category: 'audio',
+    category: 'video',
     description: '用提示词生成歌曲和音乐 demo，适合品牌 BGM、短视频音乐和创意实验。',
     accent: 'Music AI',
     metric: '音乐 / BGM / 创作',
@@ -153,6 +151,78 @@ const tools = [
     url: 'https://suno.com',
     users: '千万级',
     heat: 91,
+  },
+  {
+    name: 'Gemini',
+    category: 'chat',
+    description: 'Google 的多模态 AI 助手，适合联网问答、资料整理、表格思路和跨工具协作。',
+    accent: 'Google AI',
+    metric: '聊天 / 多模态 / 办公',
+    icon: 'sparkles',
+    tags: ['新手必用', '免费可用', '办公'],
+    url: 'https://gemini.google.com',
+    users: '亿级',
+    heat: 93,
+  },
+  {
+    name: 'GitHub Copilot',
+    category: 'code',
+    description: '面向开发者的 AI 编程助手，支持补全、解释代码、生成测试和加速项目迭代。',
+    accent: 'Code Assistant',
+    metric: '编程 / 测试 / 重构',
+    icon: 'github',
+    tags: ['编程神器', '开发', '效率'],
+    url: 'https://github.com/features/copilot',
+    users: '开发者',
+    heat: 94,
+  },
+  {
+    name: 'Notion AI',
+    category: 'office',
+    description: '把知识库、会议记录、项目文档和总结写作整合到团队办公空间。',
+    accent: 'Workspace AI',
+    metric: '办公 / 文档 / 知识库',
+    icon: 'grid',
+    tags: ['办公', '内容创作', '知识库'],
+    url: 'https://www.notion.com/product/ai',
+    users: '团队级',
+    heat: 87,
+  },
+  {
+    name: 'Canva AI',
+    category: 'image',
+    description: '适合普通人快速生成海报、封面、广告图和社媒物料的设计工具。',
+    accent: 'Design Suite',
+    metric: '绘画 / 海报 / 广告图',
+    icon: 'leonardo',
+    tags: ['免费可用', '内容创作', '海报'],
+    url: 'https://www.canva.com/ai',
+    users: '亿级',
+    heat: 90,
+  },
+  {
+    name: 'Gamma',
+    category: 'office',
+    description: '用 AI 快速生成演示文稿、方案页和产品介绍，适合提案与知识输出。',
+    accent: 'Presentation AI',
+    metric: 'PPT / 方案 / 办公',
+    icon: 'grid',
+    tags: ['办公', '内容创作', '新手必用'],
+    url: 'https://gamma.app',
+    users: '创作者',
+    heat: 88,
+  },
+  {
+    name: 'CapCut',
+    category: 'video',
+    description: '剪映国际版，提供 AI 字幕、脚本、模板和短视频剪辑能力。',
+    accent: 'Video Editor',
+    metric: '剪辑 / 字幕 / 短视频',
+    icon: 'runway',
+    tags: ['视频神器', '免费可用', '短视频'],
+    url: 'https://www.capcut.com',
+    users: '亿级',
+    heat: 92,
   },
 ];
 
@@ -171,6 +241,49 @@ const videoShowcase = [
   { title: 'AI动漫', type: 'Anime Pilot', description: '角色设定、场景氛围和动态镜头，用 AI 快速测试故事 IP。', gradient: 'linear-gradient(135deg, #111, #2f2f38 48%, #050505)' },
   { title: 'AI产品宣传片', type: 'Product Demo', description: '把产品卖点转化为可演示的视觉流程和转化型旁白。', gradient: 'linear-gradient(135deg, #070707, #3a3a3a 44%, #0d0d0d)' },
 ];
+
+const promptTemplates = [
+  {
+    title: '新手提问公式',
+    scene: '聊天 / 学习',
+    prompt: '你是一位耐心的 AI 教练。请基于我的目标【填写目标】、当前水平【填写水平】、可用时间【填写时间】，给我一个分步骤执行方案，并用表格列出每天要做什么。',
+  },
+  {
+    title: '短视频脚本模板',
+    scene: '视频 / 内容创作',
+    prompt: '请为主题【填写主题】生成一条 60 秒短视频脚本，结构包含：3 秒开头钩子、问题放大、3 个解决步骤、结尾行动号召，并给出画面建议和字幕文案。',
+  },
+  {
+    title: '网站落地页模板',
+    scene: '编程 / 产品',
+    prompt: '请为项目【填写项目】设计一个黑白高级风格落地页，包含首屏标题、用户痛点、核心功能、案例展示、价格/转化按钮和移动端布局建议。',
+  },
+];
+
+const hotLabels = ['新手必用', '免费可用', '视频神器', '编程神器', '内容创作'];
+
+const beginnerSteps = [
+  '第一步：先学会问问题',
+  '第二步：用AI做一条短视频',
+  '第三步：用AI做一个网站',
+  '第四步：把成果发到抖音/X',
+];
+
+const changeLogs = [
+  { title: '新增工具', detail: '补充 Gemini、Canva AI、Gamma、CapCut、GitHub Copilot 等常用入口。' },
+  { title: '新增Prompt', detail: '上线新手提问、短视频脚本、网站落地页 3 套可复制模板。' },
+  { title: '网站功能更新', detail: '新增工具搜索、分类筛选、热门标签、锚点导航与空状态提示。' },
+];
+
+const aiCases = [
+  { title: 'AI做短视频', description: '从选题、脚本、配音到剪辑，快速生成可发布内容。', gradient: 'linear-gradient(135deg, #080808, #3b3b3b 48%, #111)' },
+  { title: 'AI做海报', description: '用提示词生成主视觉，再用设计工具完成封面和社媒图。', gradient: 'linear-gradient(135deg, #111, #282828 45%, #050505)' },
+  { title: 'AI做网站', description: '把需求拆成页面结构、组件样式和上线步骤，降低启动门槛。', gradient: 'linear-gradient(135deg, #050505, #34343a 54%, #0c0c0c)' },
+  { title: 'AI做广告图', description: '围绕产品卖点生成多版视觉，测试更适合投放的表达。', gradient: 'linear-gradient(135deg, #0a0a0a, #444 45%, #080808)' },
+];
+
+const futurePlans = ['AI视频工具库', 'AI学习社区', 'AI Prompt 市场', 'AI资源下载', 'AI创业内容'];
+
 
 const stats = [
   ['AI工具数量', 128, '+'],
@@ -227,6 +340,23 @@ const icon = (name) => {
 
 const escapeAttribute = (value) =>
   value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+const copyText = async (text) => {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  textarea.remove();
+};
 
 const particleTemplate = () =>
   Array.from({ length: 78 }, (_, index) => {
@@ -358,12 +488,14 @@ const renderApp = () => {
       <nav class="nav-panel ${menuOpen ? 'open' : ''}" aria-label="主导航">
         <a href="#top">首页</a>
         <a href="#tools">AI工具</a>
-        <a href="#video">AI视频</a>
+        <a href="#prompts">Prompt</a>
+        <a href="#toolkit">工具包</a>
+        <a href="#video">AI案例</a>
         <a href="#roadmap">AI路线图</a>
         <a href="#about">关于航均</a>
         <a href="#contact">联系方式</a>
       </nav>
-      <a class="nav-cta" href="#contact">Join Lab</a>
+      <a class="nav-cta" href="#toolkit">免费工具包</a>
     </header>
 
     <main>
@@ -374,7 +506,7 @@ const renderApp = () => {
           <p>把 AI 工具、视频生成、提示词工作流和个人品牌增长路线，做成普通人也能执行的 AI 创业操作系统。</p>
           <div class="hero-actions">
             <a class="primary-action" href="#tools">探索 AI 工具体系 ${icon('arrow')}</a>
-            <a class="secondary-action" href="#video">观看视频作品集</a>
+            <a class="secondary-action" href="#prompts">领取 Prompt 模板</a>
           </div>
           <div class="trust-strip" aria-label="产品定位">
             <span>Tool Intelligence</span>
@@ -419,6 +551,14 @@ const renderApp = () => {
         `).join('')}
       </section>
 
+      <section class="favorite-banner glass-panel section-block reveal" id="favorite">
+        <div>
+          <span class="section-kicker">Bookmark</span>
+          <h2>收藏本站，下一次找 AI 工具不用从零开始。</h2>
+        </div>
+        <p>建议保存到浏览器书签栏，后续会持续补充免费工具、Prompt、AI 视频流程和普通人案例。</p>
+      </section>
+
       <section class="tools-section section-block" id="tools">
         <div class="section-heading reveal">
           <div>
@@ -435,7 +575,65 @@ const renderApp = () => {
           ${categories.map((category) => `<button class="category-chip ${activeCategory === category.id ? 'active' : ''}" data-category="${category.id}">${category.label}</button>`).join('')}
         </div>
         <div class="tool-grid" id="tool-grid"></div>
-        <p class="empty-state" id="empty-state" hidden>暂未找到匹配工具，请尝试其他关键词。</p>
+        <p class="empty-state" id="empty-state" hidden>暂时没有找到，换个关键词试试。</p>
+      </section>
+
+      <section class="hot-section section-block" id="hot">
+        <div class="section-heading reveal">
+          <div>
+            <span>${icon('sparkles')} Weekly Hot</span>
+            <h2>本周热门AI工具。</h2>
+          </div>
+          <p>按热度优先展示，适合新手快速找到当前最值得试用的工具。</p>
+        </div>
+        <div class="hot-label-row reveal">${hotLabels.map((label) => `<span>${label}</span>`).join('')}</div>
+        <div class="hot-tool-grid">
+          ${tools.slice().sort((a, b) => b.heat - a.heat).slice(0, 5).map((tool, index) => `
+            <a class="hot-tool-card reveal-card" href="${tool.url}" target="_blank" rel="noreferrer" style="--delay:${index * 70}ms">
+              <b>0${index + 1}</b>
+              <div><strong>${tool.name}</strong><span>${tool.metric}</span></div>
+              <em>${tool.heat}</em>
+            </a>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="prompt-section section-block" id="prompts">
+        <div class="section-heading reveal">
+          <div>
+            <span>${icon('sparkles')} Prompt Templates</span>
+            <h2>Prompt 模板专区。</h2>
+          </div>
+          <p>复制后把【】里的内容替换成自己的目标，即可直接在 ChatGPT、Gemini、Claude 中使用。</p>
+        </div>
+        <div class="prompt-grid">
+          ${promptTemplates.map((template, index) => `
+            <article class="prompt-card reveal-card" style="--delay:${index * 85}ms">
+              <small>${template.scene}</small>
+              <h3>${template.title}</h3>
+              <p>${template.prompt}</p>
+              <button class="copy-prompt" type="button" data-prompt="${escapeAttribute(template.prompt)}">复制Prompt</button>
+            </article>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="starter-section section-block glass-panel reveal" id="starter">
+        <div>
+          <span class="section-kicker">Beginner Entry</span>
+          <h2>第一次接触AI，从这里开始</h2>
+          <p>别急着收藏一堆工具，先完成一个能发布的小成果。</p>
+        </div>
+        <ol>
+          ${beginnerSteps.map((step) => `<li>${step}</li>`).join('')}
+        </ol>
+      </section>
+
+      <section class="toolkit-section section-block glass-panel reveal" id="toolkit">
+        <span>${icon('grid')} Free AI Toolkit</span>
+        <h2>免费AI工具包入口。</h2>
+        <p>包含 AI 工具清单、Prompt 入门模板、短视频流程和网站搭建路线，适合普通人先跑通第一轮 AI 实战。</p>
+        <a class="primary-action" href="mailto:liuhangjun0816@qq.com?subject=领取免费AI工具包">免费领取工具包 ${icon('arrow')}</a>
       </section>
 
       <section class="video-section section-block" id="video">
@@ -451,6 +649,25 @@ const renderApp = () => {
                 <button aria-label="播放 ${item.title}">${icon('play')}</button>
                 <span>${item.type}</span>
               </div>
+              <h3>${item.title}</h3>
+              <p>${item.description}</p>
+            </article>
+          `).join('')}
+        </div>
+      </section>
+
+      <section class="case-section section-block" id="cases">
+        <div class="section-heading reveal">
+          <div>
+            <span>${icon('play')} AI Case Gallery</span>
+            <h2>AI案例展示。</h2>
+          </div>
+          <p>用缩略图方式展示普通人可以模仿的 AI 输出场景。</p>
+        </div>
+        <div class="case-grid">
+          ${aiCases.map((item, index) => `
+            <article class="case-card reveal-card" style="--delay:${index * 80}ms;--thumb:${item.gradient}">
+              <div class="case-thumb"><span>${item.title}</span></div>
               <h3>${item.title}</h3>
               <p>${item.description}</p>
             </article>
@@ -484,8 +701,8 @@ const renderApp = () => {
         <div class="about-layout glass-panel">
           <div>
             <span class="section-kicker">About Hangjun</span>
-            <h2>不是课程包装，而是持续公开迭代的 AI 实验室。</h2>
-            <p>航均AI实验室聚焦普通人的 AI 应用落地：选工具、写提示词、做视频、搭网站、沉淀品牌，最终把技能产品化。</p>
+            <h2>关于航均：把普通人的 AI 成长过程公开记录下来。</h2>
+            <p>航均从“不会写代码、不会做视频、不会设计”的普通起点出发，用 AI 一步步尝试提问、做内容、搭网站和整理工具库。这个网站不是冷冰冰的导航站，而是一个持续更新的个人实验室：把踩过的坑、真正能用的工具、可复制的 Prompt 和普通人可执行的路线留下来，帮助更多人更快跑通第一个 AI 作品。</p>
           </div>
           <div class="about-proof">
             <span>Learn</span>
@@ -496,11 +713,32 @@ const renderApp = () => {
         </div>
       </section>
 
+      <section class="update-section section-block glass-panel reveal" id="updates">
+        <div>
+          <span class="section-kicker">Changelog</span>
+          <h2>更新日志。</h2>
+        </div>
+        <div class="update-list">
+          ${changeLogs.map((item) => `<article><strong>${item.title}</strong><p>${item.detail}</p></article>`).join('')}
+        </div>
+      </section>
+
+      <section class="future-section section-block reveal" id="future">
+        <div class="section-heading">
+          <div>
+            <span>${icon('route')} Future Plan</span>
+            <h2>未来计划。</h2>
+          </div>
+          <p>围绕工具、学习、资源、社区和 AI 创业内容继续迭代。</p>
+        </div>
+        <div class="future-grid">${futurePlans.map((plan) => `<span>${plan}</span>`).join('')}</div>
+      </section>
+
       <section class="bottom-cta glass-panel section-block reveal" id="contact">
         <span>${icon('sparkles')} Start Creating</span>
         <h2>从今天开始，别只刷 AI，要用 AI 建立自己的产品感。</h2>
         <p>获取工具清单、Prompt 模板、AI 视频流程与个人品牌增长实验。</p>
-        <a class="primary-action" href="mailto:hello@hangjun.ai">联系航均AI实验室 ${icon('arrow')}</a>
+        <a class="primary-action" href="mailto:liuhangjun0816@qq.com">联系航均AI实验室 ${icon('arrow')}</a>
       </section>
     </main>
 
@@ -510,10 +748,10 @@ const renderApp = () => {
         <p>让普通人用 AI 学习、创造、搭建产品，把注意力变成可复利的数字资产。</p>
       </div>
       <div class="footer-links">
-        <a href="https://github.com" target="_blank" rel="noreferrer">${icon('github')} GitHub</a>
-        <a href="https://www.douyin.com" target="_blank" rel="noreferrer">抖音</a>
-        <a href="https://x.com" target="_blank" rel="noreferrer">${icon('x')} X/Twitter</a>
-        <a href="mailto:hello@hangjun.ai">${icon('mail')} hello@hangjun.ai</a>
+        <a href="#contact">微信：HJ_08yue16ri</a>
+        <a href="https://www.douyin.com" target="_blank" rel="noreferrer">抖音：88667795slyz</a>
+        <a href="https://x.com/816xcch" target="_blank" rel="noreferrer">${icon('x')} X：@816xcch</a>
+        <a href="mailto:liuhangjun0816@qq.com">${icon('mail')} liuhangjun0816@qq.com</a>
       </div>
       <div class="footer-bottom"><span>© 2026 航均AI实验室</span><span>Powered by AI</span></div>
     </footer>
@@ -534,6 +772,17 @@ const renderApp = () => {
   document.querySelector('#search-input')?.addEventListener('input', (event) => {
     query = event.currentTarget.value;
     renderTools();
+  });
+
+  document.querySelectorAll('.copy-prompt').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const text = button.dataset.prompt ?? '';
+      await copyText(text);
+      button.textContent = '已复制';
+      window.setTimeout(() => {
+        button.textContent = '复制Prompt';
+      }, 1400);
+    });
   });
 
   document.querySelectorAll('[data-category]').forEach((button) => {
