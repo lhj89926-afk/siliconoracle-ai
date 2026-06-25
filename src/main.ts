@@ -33,6 +33,18 @@ const tools = [
     heat: 92,
   },
   {
+    name: 'Remio',
+    category: 'office',
+    description: '本地优先的 AI 记忆与个人知识库客户端，把文件、网页、录音、邮件、消息、图片和笔记解析成本地索引与向量，便于快速检索个人上下文。',
+    accent: 'Local AI Memory',
+    metric: '知识库 / 文件解析 / 检索',
+    icon: 'sparkles',
+    tags: ['知识库', '本地优先', '办公'],
+    url: 'https://remio.ai/',
+    users: '个人知识工作者',
+    heat: 87,
+  },
+  {
     name: 'Claude',
     category: 'chat',
     description: '擅长长文档理解、结构化分析和深度推理，适合搭建个人知识工作流。',
